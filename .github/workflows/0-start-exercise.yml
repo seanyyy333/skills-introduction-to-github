@@ -337,7 +337,3 @@ def update_readme(content):
 
 #   # Example: Simulate updating the README
 #   # update_readme("This README was potentially updated from a notebook.")
-
-print("Step 0: Start Exercise completed.")
-
-    
