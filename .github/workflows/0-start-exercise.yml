@@ -1,12 +1,133 @@
-# prompt: name: Step 0 # Start Exercise
-# on:
-#   push:
-#     branches:
-#       - main
-# permissions:
-#   contents: write # Update Readme
-#   actions: write # Disable/enable workflows
-#   issues: write # Create issue and comment on issues
+# prompt: prompt: name: Step 0 # Start Exercise
+# # on:
+# #   push:
+# #     branches:
+# #       - main
+# # permissions:
+# #   contents: write # Update Readme
+# #   actions: write # Disable/enable workflows
+# #   issues: write # Create issue and comment on issues
+# import requests
+# # Replace with your GitHub repository information
+# owner = "your_github_username"
+# repo = "your_repository_name"
+# # Replace with your GitHub Token (ensure it has the 'write' permission for actions and issues)
+# # It's recommended to use GitHub Secrets for storing tokens.
+# # For demonstration purposes, we'll use a placeholder here.
+# github_token = "your_github_token" 
+
+# The provided code is YAML for a GitHub Actions workflow.
+# It's not Python code and cannot be executed directly in Colaboratory or Jupyter notebooks.
+# The subsequent Python code block provides examples of interacting with the GitHub API
+# using the 'requests' library, which could potentially be used in a Colab/Jupyter environment
+# to perform similar actions programmatically if you have the necessary credentials and libraries installed.
+
+# To run the Python code below, you would need:
+# 1. The 'requests' library installed (`!pip install requests`).
+# 2. Replace placeholder values like `your_github_username`, `your_repository_name`,
+#    and `your_github_token` with your actual GitHub information.
+# 3. Ensure your GitHub Token has the necessary permissions (repo scope for creating issues and managing workflows).
+
+# The YAML code describes automated steps to be run on GitHub's infrastructure,
+# while the Python code demonstrates how you might achieve similar results
+# by interacting with the GitHub API from a different environment.
+
+# The task is to work with Google Colaboratory or Jupyter notebooks.
+# The provided YAML code is irrelevant to this task as it's not Python.
+# The provided Python code *is* relevant as it demonstrates Python code
+# that could be run in Colab/Jupyter, although its original context
+# is likely related to being triggered by a GitHub Actions workflow.
+
+# We will focus on the Python code block provided as it's the only part
+# executable in a Colab/Jupyter environment.
+
+# The task "In this file:" followed by the Python code doesn't specify
+# what to do with the Python code. Since the last output of the user was
+# the full Python script and the print statement "Step 0: Start Exercise completed.",
+# it seems the user is providing the script and confirming its completion.
+
+# Assuming the goal is to present the provided Python code as a functional block
+# within a Colab/Jupyter environment, we will simply reproduce it, adding
+# comments about necessary prerequisites and usage.
+
+
+!pip install requests
+
+import requests
+
+
+# Replace with your GitHub repository information
+owner = "your_github_username"
+repo = "your_repository_name"
+
+# Replace with your GitHub Token (ensure it has the 'write' permission for actions and issues)
+# It's recommended to use GitHub Secrets for storing tokens.
+# For demonstration purposes, we'll use a placeholder here.
+# In a real Colab/Jupyter notebook, you might prompt for this or load it securely.
+github_token = "your_github_token"
+
+headers = {
+    "Authorization": f"token {github_token}",
+    "Accept": "application/vnd.github.v3+json"
+}
+
+def create_issue(title, body):
+    """Creates a new GitHub issue."""
+    url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+    data = {"title": title, "body": body}
+    try:
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
+        print(f"Created issue: {response.json()['html_url']}")
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error creating issue: {e}")
+        return None
+
+
+def disable_workflow(workflow_id):
+    """Disables a GitHub Actions workflow."""
+    url = f"https://api.github.com/repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable"
+    try:
+        response = requests.put(url, headers=headers)
+        response.raise_for_status() # Raise an exception for bad status codes (4xx or 5xx)
+        print(f"Disabled workflow: {workflow_id}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error disabling workflow {workflow_id}: {e}")
+
+
+def update_readme(content):
+    """Updates the README.md file."""
+    # This is a simplified example. Updating a file requires getting the file's
+    # current SHA and potentially handling concurrent updates.
+    # For a more robust solution, consider using the PyGithub library.
+    # The process involves:
+    # 1. GET /repos/{owner}/{repo}/contents/{path} to get current file content and SHA.
+    # 2. Encode the new content in base64.
+    # 3. PUT /repos/{owner}/{repo}/contents/{path} with the new content, SHA, and a commit message.
+    print("Updating README.md (simulated)")
+    print(f"New content (would need proper API call): {content}")
+
+
+# Example usage within Colab/Jupyter if you want to test these functions:
+# Remember to replace placeholders and handle your token securely.
+
+# if __name__ == "__main__": # This block would typically run if the script is executed directly.
+                          # In Colab/Jupyter, you might call the functions directly or wrap them in cells.
+
+#   # Example: Create an issue
+#   # issue_title = "Test Issue from Colab"
+#   # issue_body = "This issue was created from a Google Colaboratory notebook."
+#   # created_issue = create_issue(issue_title, issue_body)
+
+#   # Example: Disable a workflow (you need the workflow ID - find it in the Actions tab URL on GitHub)
+#   # Replace '12345' with a real workflow ID
+#   # disable_workflow(12345)
+
+#   # Example: Simulate updating the README
+#   # update_readme("This README was potentially updated from a notebook.")
+
+print("Step 0: Start Exercise completed.")
 
 import requests
 
